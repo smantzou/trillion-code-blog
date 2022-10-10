@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model blog {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  slug        String   @unique
+  imagePath   String
+  content     String   @db.LongText
+  date        DateTime @db.Date
+  related     blog[]   @relation("relatedBlogs")
+  relatedBlog blog?    @relation("relatedBlogs", fields: [blogId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  blogId      Int?
+}
