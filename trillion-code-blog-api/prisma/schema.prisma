@@ -12,14 +12,22 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model blog {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  slug        String   @unique
-  imagePath   String
-  content     String   @db.LongText
-  date        DateTime @db.Date
-  related     blog[]   @relation("relatedBlogs")
-  relatedBlog blog?    @relation("relatedBlogs", fields: [blogId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  blogId      Int?
+model Blog {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  slug         String         @unique
+  imagePath    String
+  content      String         @db.LongText
+  date         DateTime       @db.Date
+  relatedBlogs BlogsOnBlogs[] @relation("blog")
+  blogsRelated BlogsOnBlogs[] @relation("relatedToBlog")
+}
+
+model BlogsOnBlogs {
+  blogId          Int
+  blog            Blog @relation("blog", fields: [blogId], references: [id])
+  relatedToBlogId Int
+  relatedToBlog   Blog @relation("relatedToBlog", fields: [relatedToBlogId], references: [id])
+
+  @@id([blogId, relatedToBlogId])
 }

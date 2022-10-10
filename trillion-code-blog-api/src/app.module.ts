@@ -7,9 +7,10 @@ import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 import { ResponseTransformInterceptor } from './shared/interceptors/response.interceptor';
 import { LoggerModule } from './shared/modules/logger/logger.module';
 import { PrismaModule } from './shared/modules/prisma/prisma.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
-  imports: [ConfigurationModule, LoggerModule, PrismaModule],
+  imports: [ConfigurationModule, LoggerModule, PrismaModule, BlogModule],
   controllers: [AppController],
   providers: [
     AppService,
