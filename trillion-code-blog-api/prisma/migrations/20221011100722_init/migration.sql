@@ -14,8 +14,10 @@ CREATE TABLE `Blog` (
 
 -- CreateTable
 CREATE TABLE `BlogsOnBlogs` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `blogId` INTEGER NOT NULL,
     `relatedToBlogId` INTEGER NOT NULL,
 
-    PRIMARY KEY (`blogId`, `relatedToBlogId`)
+    UNIQUE INDEX `BlogsOnBlogs_blogId_relatedToBlogId_key`(`blogId`, `relatedToBlogId`),
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

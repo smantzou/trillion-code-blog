@@ -11,16 +11,14 @@ export class BlogService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createBlogDto: CreateBlogDto) {
-    // const relatedBlogs
-    // const result = await this.blogsModel.create({
-    //   data: createBlogDto,
-    // });
+    const blogRelations = createBlogDto.relatedBlogs;
+    delete createBlogDto['relatedBlogs'];
+    const blogDto = createBlogDto;
   }
 
-  async findAll() {
+  async findAll(includeRelatedBlogs, includeContent) {
     const blogs = await this.blogsModel.findMany();
     const blogsOnBlogs = await this.blogsOnBlogs.findMany();
-    console.log(blogs, blogsOnBlogs);
     return { blogs, blogsOnBlogs };
   }
 

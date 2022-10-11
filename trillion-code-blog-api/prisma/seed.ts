@@ -197,16 +197,21 @@ const blogs: Blog[] = [
   },
 ];
 
-function addThreeRandomRelationsToBlog(
+function addUpToThreeRandomRelationsToBlog(
   blogRelations: CreateBlogOnBlogDto[],
   id: number,
   ids: number[],
 ) {
   for (let i = 0; i < 3; i++) {
-    blogRelations.push({
-      blogId: id,
-      relatedToBlogId: ids[Math.floor(Math.random() * ids.length)],
-    });
+    const randomId = ids[Math.floor(Math.random() * ids.length)];
+    if (randomId === id) {
+      continue;
+    } else {
+      blogRelations.push({
+        blogId: id,
+        relatedToBlogId: randomId,
+      });
+    }
   }
 }
 
@@ -214,21 +219,43 @@ function getBlogRelations() {
   const ids = blogs.map((blog) => blog.id);
   const blogRelations: CreateBlogOnBlogDto[] = [];
   ids.forEach((id) => {
-    addThreeRandomRelationsToBlog(blogRelations, id, ids);
+    addUpToThreeRandomRelationsToBlog(blogRelations, id, ids);
   });
   return blogRelations;
 }
 
-async function main() {
-  const blogRelations = getBlogRelations();
+async function createBlogs() {
   await prisma.blog.createMany({ data: blogs });
-  console.log(blogRelations);
-  await prisma.blogsOnBlogs.createMany({
-    data: blogRelations,
+}
+
+function createBlogOnBlogRelations(blogRelations: CreateBlogOnBlogDto[]) {
+  blogRelations.forEach(async (blogRelation) => {
+    try {
+      await prisma.blogsOnBlogs.create({
+        data: blogRelation,
+      });
+      console.log('Successfully Created', blogRelation);
+    } catch (error) {
+      console.log(
+        'Rejected relation due to unique constraint violation',
+        blogRelation,
+      );
+    }
   });
 }
+
+async function main() {
+  console.log('Seed Init...');
+  const blogRelations = getBlogRelations();
+  console.log('Seeding Blogs...');
+  await createBlogs();
+  console.log('Seeding Blog Relations...');
+  createBlogOnBlogRelations(blogRelations);
+}
+
 main()
   .then(async () => {
+    console.log('Seed completed successfully disconnecting...');
     await prisma.$disconnect();
   })
   .catch(async (e) => {

@@ -29,4 +29,6 @@ model BlogsOnBlogs {
   blog            Blog @relation("blog", fields: [blogId], references: [id])
   relatedToBlogId Int
   relatedToBlog   Blog @relation("relatedToBlog", fields: [relatedToBlogId], references: [id])
+
+  @@unique([blogId, relatedToBlogId])
 }
