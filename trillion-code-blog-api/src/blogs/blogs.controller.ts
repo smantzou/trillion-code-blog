@@ -14,7 +14,7 @@ import {
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
-import { BlogService } from './blog.service';
+import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import {
   ResponseBlogDto,
@@ -24,9 +24,9 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 
 @ApiTags('Blog')
 @Controller('blog')
-export class BlogController {
+export class BlogsController {
   constructor(
-    private readonly blogService: BlogService,
+    private readonly blogService: BlogsService,
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {}
 

@@ -6,7 +6,7 @@ import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 
 @Injectable()
-export class BlogService {
+export class BlogsService {
   private readonly blogsModel = this.prisma.blog;
   private readonly blogsOnBlogsModel = this.prisma.blogsOnBlogs;
 

@@ -1,5 +1,5 @@
 import { Blog, PrismaClient } from '@prisma/client';
-import { CreateBlogOnBlogDto } from 'src/blog/dto/create-blog-on-blog.dto';
+import { CreateBlogOnBlogDto } from 'src/blogs/dto/create-blog-on-blog.dto';
 const prisma = new PrismaClient();
 
 const blogs: Blog[] = [
