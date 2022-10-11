@@ -9,10 +9,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-class ResponseRelatedBlogDto {
-  @ApiProperty()
-  @IsInt()
-  id: number;
+export class ResponseBlogDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -34,7 +31,7 @@ class ResponseRelatedBlogDto {
   date: Date;
 }
 
-export class ResponseBlogsDto {
+export class ResponseRelatedBlogDto {
   @ApiProperty()
   @IsInt()
   id: number;
@@ -58,15 +55,12 @@ export class ResponseBlogsDto {
   @IsDate()
   date: Date;
   @ApiProperty({
-    type: [ResponseRelatedBlogDto],
+    type: [ResponseBlogDto],
   })
   @IsArray()
-  @Transform(
-    (data) => plainToClass(ResponseRelatedBlogDto, data.obj.relatedBlogs),
-    {
-      toClassOnly: true,
-    },
-  )
+  @Transform((data) => plainToClass(ResponseBlogDto, data.obj.relatedBlogs), {
+    toClassOnly: true,
+  })
   @ValidateNested({ each: true })
-  relatedBlogs: ResponseRelatedBlogDto[];
+  relatedBlogs: ResponseBlogDto[];
 }

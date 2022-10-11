@@ -16,7 +16,10 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
-import { ResponseBlogsDto } from './dto/response-blog.dto';
+import {
+  ResponseBlogDto,
+  ResponseRelatedBlogDto,
+} from './dto/response-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 
 @ApiTags('Blog')
@@ -42,21 +45,11 @@ export class BlogController {
   @Get()
   @ApiOkResponse({
     description: 'Success',
-    type: [ResponseBlogsDto],
+    type: [ResponseBlogDto],
   })
-  async findAll(
-    @Query('includeRelatedBlogs', ParseBoolPipe) includeRelatedBlogs: boolean,
-    @Query('includeContent', ParseBoolPipe) includeContent: boolean,
-  ) {
-    this.logger.info(
-      `[BLOG GET?includeRelatedBlogs=${JSON.stringify(
-        includeRelatedBlogs,
-      )}&includeContent=${JSON.stringify(includeContent)}] Params`,
-    );
-    const result = await this.blogService.findAll(
-      includeRelatedBlogs,
-      includeContent,
-    );
+  async findAll() {
+    this.logger.info(`[BLOG GET/] Params`);
+    const result = await this.blogService.findAll();
     this.logger.info(`[BLOG GET] Success`);
     return result;
   }
@@ -64,12 +57,28 @@ export class BlogController {
   @Get(':id')
   @ApiOkResponse({
     description: 'Success',
-    type: ResponseBlogsDto,
+    type: ResponseRelatedBlogDto,
   })
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    this.logger.info(`[BLOG GET/${id}]`);
-    const result = await this.blogService.findOne(id);
-    this.logger.info(`[BLOG GET/${id}] Success`);
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('includeRelatedBlogs', ParseBoolPipe) includeRelatedBlogs: boolean,
+    @Query('includeContent', ParseBoolPipe) includeContent: boolean,
+  ) {
+    this.logger.info(
+      `[BLOG GET/${id}?includeRelatedBlogs=${JSON.stringify(
+        includeRelatedBlogs,
+      )}&includeContent=${JSON.stringify(includeContent)}] `,
+    );
+    const result = await this.blogService.findOne(
+      id,
+      includeRelatedBlogs,
+      includeContent,
+    );
+    this.logger.info(
+      `[BLOG GET/${id}?includeRelatedBlogs=${JSON.stringify(
+        includeRelatedBlogs,
+      )}&includeContent=${JSON.stringify(includeContent)}] Success`,
+    );
     return result;
   }
 
