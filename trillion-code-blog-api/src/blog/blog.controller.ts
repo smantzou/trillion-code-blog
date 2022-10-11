@@ -24,8 +24,8 @@ export class BlogController {
   }
 
   @Get()
-  findAll() {
-    return this.blogService.findAll();
+  async findAll() {
+    return await this.blogService.findAll();
   }
 
   @Get(':id')

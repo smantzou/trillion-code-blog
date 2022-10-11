@@ -17,8 +17,11 @@ export class BlogService {
     // });
   }
 
-  findAll() {
-    return `This action returns all blog`;
+  async findAll() {
+    const blogs = await this.blogsModel.findMany();
+    const blogsOnBlogs = await this.blogsOnBlogs.findMany();
+    console.log(blogs, blogsOnBlogs);
+    return { blogs, blogsOnBlogs };
   }
 
   findOne(id: number) {
