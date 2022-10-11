@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: trillion-mysql
+    image: mysql:8.0.30
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'trillion-db'
+      MYSQL_USER: 'trillion-user'
+      MYSQL_PASSWORD: 'topSecreTpassword'
+      MYSQL_ROOT_PASSWORD: 'topSecreTpassword'
+    ports:
+      - '3306:3306'
+    networks:
+      - tcb-network
+    volumes:
+      - my-db:/var/lib/mysql
+  rest-api:
+    container_name: tcb-api
+    image: tcb-api:1.0.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - tcb-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - database
+# Names our volume
+volumes:
+  my-db:
+networks:
+  tcb-network:
