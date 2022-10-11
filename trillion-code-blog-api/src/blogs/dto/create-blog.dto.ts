@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsDate, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class CreateBlogDto {
   @ApiProperty()
@@ -18,11 +25,14 @@ export class CreateBlogDto {
   @IsNotEmpty()
   @IsString()
   content: string;
-  @ApiProperty()
-  @IsDate()
+  @ApiProperty({
+    type: Date,
+  })
+  @IsDateString()
   date: Date;
   @ApiProperty()
   @IsArray()
+  @IsNumber({}, { each: true })
   @IsInt({ each: true })
   relatedBlogs: number[];
 }

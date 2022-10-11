@@ -14,11 +14,27 @@ export class BlogsService {
 
   async create(createBlogDto: CreateBlogDto) {
     const { blogDto, relatedBlogs } = this.extractDtos(createBlogDto);
+    const areRelatedBlogIdsValid = await this.validateRelatedBlogIds(
+      relatedBlogs,
+    );
+    if (!areRelatedBlogIdsValid) return null;
     const blogCreationResult = await this.blogsModel.create({
       data: blogDto,
     });
     await this.createBlogOnBlogRelation(relatedBlogs, blogCreationResult);
     return { ...blogCreationResult, relatedBlogs };
+  }
+
+  private async validateRelatedBlogIds(
+    relatedBlogs: number[],
+  ): Promise<boolean> {
+    const blogs = await this.blogsModel.findMany({
+      where: { id: { in: relatedBlogs } },
+    });
+    if (blogs.length !== relatedBlogs.length) {
+      return false;
+    }
+    return true;
   }
 
   private async createBlogOnBlogRelation(
@@ -70,7 +86,7 @@ export class BlogsService {
         content: includeContent,
       },
     });
-    if (!includeRelatedBlogs) {
+    if (!includeRelatedBlogs || !result) {
       return result;
     }
     return await this.getFormattedBlog(id, result);
@@ -106,24 +122,34 @@ export class BlogsService {
   }
 
   async update(id: number, updateBlogDto: UpdateBlogDto) {
+    const relatedBlogIds = this.getRelatedBlogIds(updateBlogDto);
     const updateResult = await this.blogsModel.update({
       where: { id: id },
       data: updateBlogDto,
     });
-    if (this.areTransactionsRequired(updateBlogDto)) return updateResult;
+    if (!this.areTransactionsRequired(relatedBlogIds)) return updateResult;
     const { idsToRemove, idsToAdd } = await this.getTransanctionArray(
-      updateBlogDto,
       updateResult,
+      relatedBlogIds,
     );
+    console.log(idsToRemove, idsToAdd);
     await this.runRequiredTransanctions(idsToRemove, id, idsToAdd);
+    return updateResult;
+  }
+
+  private getRelatedBlogIds(updateBlogDto: UpdateBlogDto) {
+    const relatedBlogIds = updateBlogDto.relatedBlogs;
+    delete updateBlogDto['relatedBlogs'];
+    return relatedBlogIds;
   }
 
   private async getTransanctionArray(
-    updateBlogDto: UpdateBlogDto,
     updateResult: Blog,
+    newRelatedBlogsIds: number[],
   ) {
-    const { previousRelatedBlogsIds, newRelatedBlogsIds } =
-      await this.retrieveCalculationParams(updateBlogDto, updateResult);
+    const previousRelatedBlogsIds = await this.retrieveCalculationParams(
+      updateResult,
+    );
     const {
       idsToRemove,
       idsToAdd,
@@ -132,8 +158,8 @@ export class BlogsService {
     return { idsToRemove, idsToAdd };
   }
 
-  private areTransactionsRequired(updateBlogDto: UpdateBlogDto) {
-    return updateBlogDto.relatedBlogs || updateBlogDto.relatedBlogs.length < 0;
+  private areTransactionsRequired(relatedBlogIds: number[]) {
+    return relatedBlogIds !== null || relatedBlogIds.length < 0;
   }
 
   private async runRequiredTransanctions(
@@ -175,11 +201,7 @@ export class BlogsService {
     return { idsToRemove, idsToAdd };
   }
 
-  private async retrieveCalculationParams(
-    updateBlogDto: UpdateBlogDto,
-    updateResult: Blog,
-  ) {
-    const newRelatedBlogsIds = updateBlogDto.relatedBlogs;
+  private async retrieveCalculationParams(updateResult: Blog) {
     const previousRelatedBlogs = await this.blogsOnBlogsModel.findMany({
       where: {
         blogId: updateResult.id,
@@ -191,7 +213,7 @@ export class BlogsService {
     const previousRelatedBlogsIds = previousRelatedBlogs.map(
       (previousRelatedBlog) => previousRelatedBlog.relatedToBlogId,
     );
-    return { previousRelatedBlogsIds, newRelatedBlogsIds };
+    return previousRelatedBlogsIds;
   }
 
   async remove(id: number) {

@@ -10,6 +10,8 @@ import {
   Inject,
   Query,
   ParseBoolPipe,
+  BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
@@ -38,6 +40,7 @@ export class BlogsController {
   async create(@Body() createBlogDto: CreateBlogDto) {
     this.logger.info(`[BLOG POST] Params ${JSON.stringify(createBlogDto)}`);
     const result = await this.blogService.create(createBlogDto);
+    if (!result) throw new BadRequestException('Related Blog Ids Invalid!');
     this.logger.info(`[BLOG POST] Success`);
     return result;
   }
@@ -74,6 +77,9 @@ export class BlogsController {
       includeRelatedBlogs,
       includeContent,
     );
+    if (!result) {
+      throw new NotFoundException();
+    }
     this.logger.info(
       `[BLOG GET/${id}?includeRelatedBlogs=${JSON.stringify(
         includeRelatedBlogs,

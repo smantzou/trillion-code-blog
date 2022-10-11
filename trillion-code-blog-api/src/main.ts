@@ -17,7 +17,7 @@ async function bootstrap() {
     }),
   );
   const config = new DocumentBuilder()
-    .setTitle('Trillion Code Blog')
+    .setTitle('TCB API')
     .setDescription(
       'Trillion Code Blog API Explorer. Implemented using Nest.js and Swagger UI.',
     )
