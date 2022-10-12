@@ -2,15 +2,11 @@ FROM node:16.17.1 as builder
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY ./trillion-code-blog-api/package*.json ./
 
-RUN npm install 
+RUN npm ci 
 
-COPY . .
-
-# RUN npx prisma migrate dev
-
-# RUN npx prisma db seed
+COPY ./trillion-code-blog-api ./
 
 RUN npx prisma generate
 
@@ -25,16 +21,18 @@ FROM node:16.17.1-alpine3.15
 
 # ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/app
-
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 COPY --from=builder /usr/src/app/dist ./dist
 
-COPY --from=builder /usr/src/app/.env .
+COPY --from=builder /usr/src/app/.env ./
+
+COPY --from=builder usr/src/app/prisma ./prisma
+
+COPY --from=builder usr/src/app/package*.json ./
 
 RUN addgroup -S node-user && adduser -S -g node-user node-user
 
 USER node-user
 
-CMD ["node", "dist/src/main"]
+CMD [ "node", "dist/src/main" ]
