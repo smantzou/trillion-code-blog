@@ -98,11 +98,15 @@
           >awesome-vue</a
         >
       </li>
+      <li>
+        <button v-on:click="print">Hello</button>
+      </li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
+import { useCounterStore } from "@/store";
 import { Options, Vue } from "vue-class-component";
 
 @Options({
@@ -112,6 +116,11 @@ import { Options, Vue } from "vue-class-component";
 })
 export default class HelloWorld extends Vue {
   msg!: string;
+  print() {
+    const counter = useCounterStore();
+    counter.increment();
+    console.log(counter.count);
+  }
 }
 </script>
 
