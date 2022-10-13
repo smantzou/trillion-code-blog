@@ -54,7 +54,7 @@ export class BlogsController {
     @Query('limit', ParseIntPipe) limit: number,
     @Query('page', ParseIntPipe) page: number,
   ) {
-    this.logger.info(`[BLOG GET/] Params`);
+    this.logger.info(`[BLOG GET/?limit=${limit}&page=${page}] Params`);
     this.validatePaginationParamsOrThrow(page, limit);
     const result = await this.blogService.findAll(limit, page);
     this.logger.info(`[BLOG GET] Success`);
