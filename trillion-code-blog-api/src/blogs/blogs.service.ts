@@ -73,6 +73,46 @@ export class BlogsService {
     return result;
   }
 
+  async findOneBySlug(
+    slug: string,
+    includeRelatedBlogs: boolean,
+    includeContent: boolean,
+  ) {
+    const result = await this.blogsModel.findUnique({
+      where: { slug: slug },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        imagePath: true,
+        date: true,
+        content: includeContent,
+      },
+    });
+    if (!includeRelatedBlogs || !result) {
+      return result;
+    }
+    const formattedResult = await this.getFormattedBlog(result.id, result);
+    this.removeIdFromFormattedResult(formattedResult);
+    return formattedResult;
+  }
+
+  private removeIdFromFormattedResult(formattedResult: {
+    relatedBlogs: {
+      name: string;
+      slug: string;
+      imagePath: string;
+      date: Date;
+    }[];
+    name: string;
+    slug: string;
+    imagePath: string;
+    content: string;
+    date: Date;
+  }) {
+    delete formattedResult['id'];
+  }
+
   async findOne(
     id: number,
     includeRelatedBlogs: boolean,

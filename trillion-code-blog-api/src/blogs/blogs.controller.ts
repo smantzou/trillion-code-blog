@@ -102,6 +102,37 @@ export class BlogsController {
     return result;
   }
 
+  @Get(':slug')
+  @ApiOkResponse({
+    description: 'Success',
+    type: ResponseRelatedBlogDto,
+  })
+  async findOneBySlug(
+    @Param('slug') slug: string,
+    @Query('includeRelatedBlogs', ParseBoolPipe) includeRelatedBlogs: boolean,
+    @Query('includeContent', ParseBoolPipe) includeContent: boolean,
+  ) {
+    this.logger.info(
+      `[BLOG GET/${slug}?includeRelatedBlogs=${JSON.stringify(
+        includeRelatedBlogs,
+      )}&includeContent=${JSON.stringify(includeContent)}] `,
+    );
+    const result = await this.blogService.findOneBySlug(
+      slug,
+      includeRelatedBlogs,
+      includeContent,
+    );
+    if (!result) {
+      throw new NotFoundException();
+    }
+    this.logger.info(
+      `[BLOG GET/${slug}?includeRelatedBlogs=${JSON.stringify(
+        includeRelatedBlogs,
+      )}&includeContent=${JSON.stringify(includeContent)}] Success`,
+    );
+    return result;
+  }
+
   @Patch(':id')
   @ApiOkResponse({
     description: 'Success',
