@@ -16,16 +16,15 @@ RUN npm prune --prod
 
 FROM node:16.17.1-alpine3.15
 
-# Here we would define the Node Environment variable but in the case of this POC is redundant.
-# ARG NODE_ENV=${NODE_ENV}
+ARG NODE_ENV=${NODE_ENV}
 
-# ENV NODE_ENV=${NODE_ENV}
+ENV NODE_ENV=${NODE_ENV}
 
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 COPY --from=builder /usr/src/app/dist ./dist
 
-COPY --from=builder /usr/src/app/.env ./
+COPY --from=builder /usr/src/app/.env.${NODE_ENV} ./
 
 COPY --from=builder usr/src/app/prisma ./prisma
 
