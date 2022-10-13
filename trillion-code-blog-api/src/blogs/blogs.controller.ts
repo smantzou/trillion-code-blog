@@ -50,9 +50,19 @@ export class BlogsController {
     description: 'Success',
     type: [ResponseBlogDto],
   })
-  async findAll() {
+  async findAll(
+    @Query('limit', ParseIntPipe) limit: number,
+    @Query('page', ParseIntPipe) page: number,
+  ) {
     this.logger.info(`[BLOG GET/] Params`);
-    const result = await this.blogService.findAll();
+    if (page < 1 || limit < 1) {
+      throw new BadRequestException(
+        `Query Parameters limit and page must be greater than one received limit: ${JSON.stringify(
+          limit,
+        )} page: ${JSON.stringify(page)} `,
+      );
+    }
+    const result = await this.blogService.findAll(limit, page);
     this.logger.info(`[BLOG GET] Success`);
     return result;
   }

@@ -59,8 +59,10 @@ export class BlogsService {
     return { blogDto, relatedBlogs };
   }
 
-  async findAll() {
+  async findAll(limit: number, page: number) {
     const result = await this.blogsModel.findMany({
+      skip: limit * page,
+      take: limit,
       select: {
         name: true,
         slug: true,
