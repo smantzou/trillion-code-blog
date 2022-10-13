@@ -1,6 +1,5 @@
 <template>
-  <AppHeader></AppHeader>
-  <AppSuper></AppSuper>
+  <AppHeader class=""></AppHeader>
   <RouterView></RouterView>
   <AppFooter></AppFooter>
 </template>
@@ -9,13 +8,11 @@
 import { Options, Vue } from "vue-class-component";
 import AppFooter from "./components/layout/AppFooter.vue";
 import AppHeader from "./components/layout/AppHeader.vue";
-import AppSuper from "./components/layout/AppSuper.vue";
 
 @Options({
   components: {
     AppFooter,
     AppHeader,
-    AppSuper,
   },
 })
 export default class App extends Vue {}
@@ -29,5 +26,8 @@ export default class App extends Vue {}
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: grid;
+  grid-template-columns: 1;
+  grid-template-rows: 15vh 70vh 15vh;
 }
 </style>
