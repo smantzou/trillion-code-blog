@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-
 import { blogItem } from "@/interfaces/blogItem";
 import { backend } from "@/environment";
 import { Blog } from "@/interfaces/blog";

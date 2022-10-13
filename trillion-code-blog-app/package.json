@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve:dev": "vue-cli-service serve --mode development",
-    "serve": "vue-cli-service serve --mode production",
+    "serve:prod": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint"
   },
@@ -13,12 +13,13 @@
     "core-js": "^3.8.3",
     "pinia": "^2.0.23",
     "vue": "^3.2.13",
-    "vue-class-component": "^8.0.0-0"
+    "vue-class-component": "^8.0.0-0",
+    "vue-router": "^4.1.5"
   },
   "devDependencies": {
+    "@types/node": "^18.8.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
-    "@types/node": "^18.8.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.0",

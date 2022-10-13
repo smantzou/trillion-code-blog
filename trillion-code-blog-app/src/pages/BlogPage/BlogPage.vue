@@ -1,12 +1,12 @@
 <template>
-  <span>Header Works!</span>
+  <span>Blog Page works!</span>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
-export default class AppHeader extends Vue {}
+export default class BlogPage extends Vue {}
 </script>
 
 <style></style>

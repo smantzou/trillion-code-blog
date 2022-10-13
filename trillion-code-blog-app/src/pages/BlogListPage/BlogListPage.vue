@@ -1,12 +1,14 @@
 <template>
-  <span>Header Works!</span>
+  <span>Blog List works!</span>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 
-@Options({})
-export default class AppHeader extends Vue {}
+@Options({
+  components: {},
+})
+export default class BlogListPage extends Vue {}
 </script>
 
 <style></style>
