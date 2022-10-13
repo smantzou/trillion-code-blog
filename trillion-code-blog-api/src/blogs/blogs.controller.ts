@@ -55,6 +55,13 @@ export class BlogsController {
     @Query('page', ParseIntPipe) page: number,
   ) {
     this.logger.info(`[BLOG GET/] Params`);
+    this.validatePaginationParamsOrThrow(page, limit);
+    const result = await this.blogService.findAll(limit, page);
+    this.logger.info(`[BLOG GET] Success`);
+    return result;
+  }
+
+  private validatePaginationParamsOrThrow(page: number, limit: number) {
     if (page < 1 || limit < 1) {
       throw new BadRequestException(
         `Query Parameters limit and page must be greater than one received limit: ${JSON.stringify(
@@ -62,9 +69,6 @@ export class BlogsController {
         )} page: ${JSON.stringify(page)} `,
       );
     }
-    const result = await this.blogService.findAll(limit, page);
-    this.logger.info(`[BLOG GET] Success`);
-    return result;
   }
 
   @Get(':id')
