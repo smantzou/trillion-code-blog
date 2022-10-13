@@ -61,7 +61,7 @@ export class BlogsService {
 
   async findAll(limit: number, page: number) {
     const result = await this.blogsModel.findMany({
-      skip: limit * page,
+      skip: limit * (page - 1),
       take: limit,
       select: {
         name: true,
