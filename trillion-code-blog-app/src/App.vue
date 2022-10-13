@@ -1,7 +1,9 @@
 <template>
-  <AppHeader class=""></AppHeader>
-  <RouterView></RouterView>
-  <AppFooter></AppFooter>
+  <div class="h-screen grid grid-cols-none">
+    <AppHeader class="header"></AppHeader>
+    <RouterView></RouterView>
+    <AppFooter></AppFooter>
+  </div>
 </template>
 
 <script lang="ts">
@@ -25,9 +27,8 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  display: grid;
-  grid-template-columns: 1;
-  grid-template-rows: 15vh 70vh 15vh;
+}
+.header {
+  height: 1.5rem;
 }
 </style>

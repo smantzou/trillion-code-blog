@@ -1,5 +1,5 @@
 <template>
-  <span>Footer Works!</span>
+  <div class="footer flex flex-col-reverse"></div>
 </template>
 
 <script lang="ts">
@@ -9,4 +9,8 @@ import { Options, Vue } from "vue-class-component";
 export default class AppFooter extends Vue {}
 </script>
 
-<style></style>
+<style>
+.footer {
+  height: 1rem;
+}
+</style>
