@@ -1,7 +1,9 @@
 <template>
   <div class="h-screen grid grid-cols-none">
     <AppHeader class="header"></AppHeader>
-    <div class="content-wrap"><RouterView></RouterView></div>
+    <div class="content-wrap">
+      <RouterView> </RouterView>
+    </div>
     <AppFooter class="footer"></AppFooter>
   </div>
 </template>

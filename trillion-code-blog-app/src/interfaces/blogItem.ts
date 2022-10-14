@@ -3,4 +3,5 @@ export interface blogItem {
   slug: string;
   imagePath: string;
   date: string;
+  content: string;
 }
