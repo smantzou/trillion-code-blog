@@ -70,7 +70,8 @@ export class BlogsService {
         date: true,
       },
     });
-    return result;
+    const numberOfPages = (await this.blogsModel.count()) / limit;
+    return { numberOfPages, blogs: result };
   }
 
   async findOneBySlug(
