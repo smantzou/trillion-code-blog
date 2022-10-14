@@ -28,8 +28,8 @@ export const useBlogStore = defineStore("blogs", {
     error: null,
   }),
   getters: {
-    getBlogs(state) {
-      return [...state.blogs];
+    getBlogs(state): blogItem[] {
+      return state.blogs;
     },
   },
   actions: {

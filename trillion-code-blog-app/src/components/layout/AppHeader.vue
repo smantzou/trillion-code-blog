@@ -30,15 +30,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { router } from "@/router";
-import { Options, Vue } from "vue-class-component";
 
-@Options({})
-export default class AppHeader extends Vue {
-  navigateToBlogs() {
-    router.push({ path: `/blogs` });
-  }
+function navigateToBlogs() {
+  router.push({ path: `/blogs` });
 }
 </script>
 

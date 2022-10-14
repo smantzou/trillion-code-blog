@@ -1,13 +1,14 @@
 <template>
   <div v-on:click="navigateToSlug()" class="blog grid grid-cols-none">
     <div class="blog-title">
-      <span>{{ new Date(blog.date).toLocaleDateString() }}</span>
+      <span>{{ new Date(date).toLocaleDateString() }}</span>
     </div>
     <div class="blog-image">
       <img
+        v-if="!!imagePath"
         class="blog-image-main"
         width="250"
-        :src="getImgUrl(blog.imagePath)"
+        :src="getImgUrl(imagePath)"
         alt=""
       />
       <img
@@ -18,7 +19,7 @@
       />
     </div>
     <div class="blog-description">
-      <p>{{ blog.content }}</p>
+      <p>{{ content }}</p>
     </div>
     <div class="blog-more flex flex-row">
       <span>ΔΙΑΒΑΣΤΕ ΠΕΡΙΣΣΟΤΕΡΑ</span>
@@ -28,28 +29,29 @@
 </template>
 
 <script lang="ts">
-import { blogItem } from "@/interfaces/blogItem";
 import { router } from "@/router";
 import { Options, Vue } from "vue-class-component";
 @Options({
   components: {},
   props: {
-    blog: BlogItem,
+    content: String,
+    imagePath: String,
+    date: String,
+    slug: String,
   },
 })
 export default class BlogItem extends Vue {
-  blog!: blogItem;
-
-  created() {
-    console.log(this.blog);
-  }
+  content!: string;
+  imagePath!: string;
+  date!: Date;
+  slug!: string;
 
   getImgUrl(imgPath: string) {
     return require("../../assets/" + imgPath);
   }
 
   navigateToSlug() {
-    router.push({ path: `blog/${this.blog.slug}` });
+    router.replace({ path: `blog/${this.slug}` });
   }
 }
 </script>
