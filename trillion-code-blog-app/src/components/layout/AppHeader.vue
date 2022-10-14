@@ -64,8 +64,15 @@ export default class AppHeader extends Vue {}
   color: black;
 }
 .super {
-  background-color: #000000;
   height: 5rem;
+  background-image: radial-gradient(
+    ellipse farthest-corner at right 100%,
+    #000000 70%,
+    #181818 30%
+  );
+  color: white;
+  border-radius: 10px;
+  line-height: 50px;
 }
 .title {
   margin-top: 3rem;
