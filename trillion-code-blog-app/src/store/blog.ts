@@ -8,6 +8,7 @@ interface State {
   blogs: blogItem[];
   numberOfPages: number;
   selectedBlogId: number;
+  currentPage: number;
   selectedBlog: Blog | null;
   error: string | null;
 }
@@ -24,6 +25,7 @@ export const useBlogStore = defineStore("blogs", {
     blogs: [],
     numberOfPages: 0,
     selectedBlogId: 0,
+    currentPage: 1,
     selectedBlog: null,
     error: null,
   }),
@@ -35,11 +37,14 @@ export const useBlogStore = defineStore("blogs", {
   actions: {
     async fetchBlogs(limit: number, page: number) {
       try {
+        this.currentPage = page;
         const response: AxiosResponse<blogResponse> = await axios.get(
           `${backend}/blog?limit=${limit}&page=${page}`
         );
         this.blogs = response.data.data.blogs;
-        this.numberOfPages = response.data.data.numberOfPages;
+        if (response.data.data.numberOfPages !== this.numberOfPages) {
+          this.numberOfPages = response.data.data.numberOfPages;
+        }
       } catch (error) {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
@@ -53,7 +58,13 @@ export const useBlogStore = defineStore("blogs", {
     async fetchBlogBySlugWithRelatedBlogs(slug: string) {
       try {
         const response: AxiosResponse<Blog> = await axios.get(
-          `${backend}/blog/${slug}?includeRelatedBlogs=true&includeContent=true`
+          `${backend}/blog/slug/${slug}`,
+          {
+            params: {
+              includeRelatedBlogs: true,
+              includeContent: true,
+            },
+          }
         );
         this.selectedBlog = response.data;
       } catch (error) {

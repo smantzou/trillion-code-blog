@@ -22,12 +22,10 @@ import AppHeader from "./components/layout/AppHeader.vue";
   background-color: #fcfcfc;
 }
 RouterView {
-  padding-bottom: 10rem; /* Footer height */
   align-content: center;
+  min-height: 100vh;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 10rem;
 }

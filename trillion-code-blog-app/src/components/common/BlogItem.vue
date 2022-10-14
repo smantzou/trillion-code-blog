@@ -22,7 +22,7 @@
       />
     </div>
     <div class="blog-description">
-      <p>{{ content }}</p>
+      <p>{{ $props.name }}</p>
     </div>
     <div class="blog-more flex flex-row">
       <span>ΔΙΑΒΑΣΤΕ ΠΕΡΙΣΣΟΤΕΡΑ</span>
@@ -36,7 +36,7 @@ import { router } from "@/router";
 export default {
   props: {
     imagePath: String,
-    content: String,
+    name: String,
     date: String,
     slug: String,
   },

@@ -32,7 +32,9 @@
 
 <script setup lang="ts">
 import { router } from "@/router";
+import { useBlogStore } from "@/store/blog";
 
+const store = useBlogStore();
 function navigateToBlogs() {
   router.push({ path: `/blogs` });
 }

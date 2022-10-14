@@ -70,7 +70,7 @@ export class BlogsService {
         date: true,
       },
     });
-    const numberOfPages = (await this.blogsModel.count()) / limit;
+    const numberOfPages = Math.floor((await this.blogsModel.count()) / limit);
     return { numberOfPages, blogs: result };
   }
 

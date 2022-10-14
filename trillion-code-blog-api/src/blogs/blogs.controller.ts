@@ -102,7 +102,7 @@ export class BlogsController {
     return result;
   }
 
-  @Get(':slug')
+  @Get('/slug/:slug')
   @ApiOkResponse({
     description: 'Success',
     type: ResponseRelatedBlogDto,
