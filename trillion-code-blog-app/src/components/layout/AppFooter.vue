@@ -50,7 +50,7 @@
       </div>
       <div class="company grid grid-rows-3 grid-cols-none">
         <div class="company-title">
-          <span>Εταιρεία</span>
+          <span><strong>Εταιρεία</strong></span>
         </div>
         <div>
           <span>Ποιοί Είμαστε</span>

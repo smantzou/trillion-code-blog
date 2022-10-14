@@ -29,6 +29,7 @@ export default class App extends Vue {}
   color: #2c3e50;
   position: relative;
   min-height: 100vh;
+  background-color: #fcfcfc;
 }
 .content-wrap {
   padding-bottom: 10rem; /* Footer height */

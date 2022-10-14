@@ -9,8 +9,12 @@
       </div>
     </div>
     <div class="logo row-span-1 flex">
-      <div>
-        <img src="../../assets/svgs/trillion-logo.svg" alt="" />
+      <div v-on:click="navigateToBlogs()">
+        <img
+          style="cursor: pointer"
+          src="../../assets/svgs/trillion-logo.svg"
+          alt=""
+        />
       </div>
       <div>
         <router-link :to="{ name: 'blogs' }">
@@ -27,10 +31,15 @@
 </template>
 
 <script lang="ts">
+import { router } from "@/router";
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
-export default class AppHeader extends Vue {}
+export default class AppHeader extends Vue {
+  navigateToBlogs() {
+    router.push({ path: `/blogs` });
+  }
+}
 </script>
 
 <style>
@@ -75,7 +84,7 @@ export default class AppHeader extends Vue {}
   line-height: 50px;
 }
 .title {
-  margin-top: 3rem;
+  margin-top: 2rem;
   margin-left: 15rem;
   color: #3abfff;
 }
