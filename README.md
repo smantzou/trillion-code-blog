@@ -17,7 +17,9 @@ In order to run it locally do the following:
 
 At this stage everything is running but the DB is unmigrated and empty therefore
 
-3. cd in the trillion-code-blog-api and run this command " dotenv --file .env.development run npx prisma migrate dev "
+3. cd in the trillion-code-blog-api and run npm install with Node 16.17.1 (latest LTS).
+
+4. In the trillion-code-blog-api and run this command " dotenv --file .env.development run npx prisma migrate dev "
 
 Now the db is setup but still empty.
 
@@ -27,6 +29,6 @@ You can now seed the db manually using the backend server rest api in this URL:
 
 OR
 
-4. run this command inside the trillion-code-blog-api folder to seed the db automatically " dotenv --file .env.development run npx prisma db seed "
+5. run this command inside the trillion-code-blog-api folder to seed the db automatically " dotenv --file .env.development run npx prisma db seed "
 
 Now in the following URL : - http://localhost:8080 the project is up and running with data.
