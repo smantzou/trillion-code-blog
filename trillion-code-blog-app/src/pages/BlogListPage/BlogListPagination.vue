@@ -3,7 +3,7 @@
     <div>
       <img
         @click="paginate(currentPage - 1)"
-        src="../../assets/svgs/arrow-icon-left.svg"
+        src="../../../public/assets/svgs/arrow-icon-left.svg"
         alt=""
       />
     </div>
@@ -20,7 +20,7 @@
       <img
         @click="paginate(currentPage + 1)"
         style="transform: rotate(180deg)"
-        src="../../assets/svgs/arrow-icon-left.svg"
+        src="../../../public/assets/svgs/arrow-icon-left.svg"
         alt=""
       />
     </div>

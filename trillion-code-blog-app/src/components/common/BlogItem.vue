@@ -17,7 +17,7 @@
       <img
         class="blog-image-arrow"
         width="65"
-        src="../../assets/svgs/arrow-icon-right.svg"
+        src="../../../public/assets/svgs/arrow-icon-right.svg"
         alt=""
       />
     </div>
@@ -26,7 +26,7 @@
     </div>
     <div class="blog-more flex flex-row">
       <span>ΔΙΑΒΑΣΤΕ ΠΕΡΙΣΣΟΤΕΡΑ</span>
-      <img width="8" src="../../assets/svgs/arrow.svg" alt="" />
+      <img width="8" src="../../../public/assets/svgs/arrow.svg" alt="" />
     </div>
   </div>
 </template>
@@ -41,11 +41,11 @@ export default {
     slug: String,
   },
   getImgUrl(imgPath: string) {
-    return require("../../assets/" + imgPath);
+    return require("../../../public/assets/" + imgPath);
   },
 
   navigateToSlug(slug: string) {
-    router.replace({ path: `blog/${slug}` });
+    router.push({ path: `/blog/${slug}` });
   },
 };
 </script>
@@ -66,9 +66,10 @@ export default {
   left: 69.4%;
   border-bottom-right-radius: 25px;
   opacity: 0.6;
-  mask: url("../../assets/svgs/arrow-icon-right.svg") no-repeat center / contain;
-  -webkit-mask: url("../../assets/svgs/arrow-icon-right.svg") no-repeat center /
+  mask: url("../../../public/assets/svgs/arrow-icon-right.svg") no-repeat center /
     contain;
+  -webkit-mask: url("../../../public/assets/svgs/arrow-icon-right.svg")
+    no-repeat center / contain;
 }
 
 .blog:hover .blog-image-arrow {

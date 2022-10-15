@@ -3,21 +3,32 @@
     <div class="footer-main grid grid-cols-4">
       <div class="logo grid grid-rows-3 grid-cols-none">
         <div class="row-start-2">
-          <img width="110px" src="../../assets/svgs/trillion-logo.svg" />
+          <img
+            width="110px"
+            src="../../../public/assets/svgs/trillion-logo.svg"
+          />
         </div>
         <div class="row-start-3 flex flex-row space-x-5">
           <div>
             <img
               width="20px"
-              src="../../assets/svgs/facebook-icon.svg"
+              src="../../../public/assets/svgs/facebook-icon.svg"
               alt=""
             />
           </div>
           <div>
-            <img width="20px" src="../../assets/svgs/twitter-icon.svg" alt="" />
+            <img
+              width="20px"
+              src="../../../public/assets/svgs/twitter-icon.svg"
+              alt=""
+            />
           </div>
           <div>
-            <img width="20px" src="../../assets/svgs/youtube-icon.svg" alt="" />
+            <img
+              width="20px"
+              src="../../../public/assets/svgs/youtube-icon.svg"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -26,11 +37,19 @@
           <span><strong>Υποστήριξη</strong></span>
         </div>
         <div class="phone flex flex-row justify-evenly">
-          <img width="10px" src="../../assets/svgs/phone-icon.svg" alt="" />
+          <img
+            width="10px"
+            src="../../../public/assets/svgs/phone-icon.svg"
+            alt=""
+          />
           <span>218 218 9966</span>
         </div>
         <div class="mail flex flex-row justify-evenly">
-          <img width="10px" src="../../assets/svgs/email-icon.svg" alt="" />
+          <img
+            width="10px"
+            src="../../../public/assets/svgs/email-icon.svg"
+            alt=""
+          />
           <span>info@webjar.gr</span>
         </div>
       </div>
@@ -40,7 +59,7 @@
         </div>
         <div class="address-location flex flex-row">
           <div>
-            <img src="../../assets/svgs/location-icon.svg" alt="" />
+            <img src="../../../public/assets/svgs/location-icon.svg" alt="" />
           </div>
           <div class="address-text">
             <span>Λεωφ. Κηφισίας 324,</span>

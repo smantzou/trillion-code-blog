@@ -12,7 +12,7 @@
       <div v-on:click="navigateToBlogs()">
         <img
           style="cursor: pointer"
-          src="../../assets/svgs/trillion-logo.svg"
+          src="../../../public/assets/svgs/trillion-logo.svg"
           alt=""
         />
       </div>
