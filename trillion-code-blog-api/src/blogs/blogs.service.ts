@@ -175,7 +175,6 @@ export class BlogsService {
       updateResult,
       relatedBlogIds,
     );
-    console.log(idsToRemove, idsToAdd);
     await this.runRequiredTransanctions(idsToRemove, id, idsToAdd);
     return updateResult;
   }

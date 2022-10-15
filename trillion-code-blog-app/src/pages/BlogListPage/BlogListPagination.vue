@@ -42,7 +42,6 @@ function getButtonClass(number: number) {
 }
 
 async function paginate(page: number) {
-  console.log(page, numberOfPages.value);
   if (page > numberOfPages.value || page < 1) {
     return;
   }
@@ -69,6 +68,7 @@ img {
 }
 .selected-button {
   color: blue;
+  background-color: white;
 }
 .selected-button:hover {
   color: blue;

@@ -1,9 +1,9 @@
 <template>
-  <div class="h-screen flex flex-col">
-    <AppHeader class="header flex-none"></AppHeader>
-    <RouterView class="grow"> </RouterView>
-    <AppFooter class="footer flex-none"></AppFooter>
+  <AppHeader :title="'Τα Νέα μας'" class="header flex-none"></AppHeader>
+  <div class="content">
+    <RouterView> </RouterView>
   </div>
+  <AppFooter class="footer flex-none"></AppFooter>
 </template>
 
 <script setup lang="ts">
@@ -19,13 +19,18 @@ import AppHeader from "./components/layout/AppHeader.vue";
   text-align: center;
   color: #2c3e50;
   position: relative;
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   background-color: #fcfcfc;
 }
-RouterView {
-  align-content: center;
-  min-height: 100vh;
+.content {
+  padding-bottom: 10rem;
 }
 .footer {
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 10rem;
 }

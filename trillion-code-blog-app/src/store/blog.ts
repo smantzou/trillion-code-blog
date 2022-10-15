@@ -20,6 +20,10 @@ interface blogResponse {
   };
 }
 
+interface blogWithRelatedResponse {
+  data: Blog;
+}
+
 export const useBlogStore = defineStore("blogs", {
   state: (): State => ({
     blogs: [],
@@ -50,29 +54,27 @@ export const useBlogStore = defineStore("blogs", {
         if (axiosError.response) {
           this.error = axiosError.message;
         } else {
-          console.log("Error", axiosError.message);
+          console.error("Error", axiosError.message);
           this.error = axiosError.message;
         }
       }
     },
     async fetchBlogBySlugWithRelatedBlogs(slug: string) {
       try {
-        const response: AxiosResponse<Blog> = await axios.get(
-          `${backend}/blog/slug/${slug}`,
-          {
+        const response: AxiosResponse<blogWithRelatedResponse> =
+          await axios.get(`${backend}/blog/slug/${slug}`, {
             params: {
               includeRelatedBlogs: true,
               includeContent: true,
             },
-          }
-        );
-        this.selectedBlog = response.data;
+          });
+        this.selectedBlog = response.data.data;
       } catch (error) {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
           this.error = axiosError.message;
         } else {
-          console.log("Error", axiosError.message);
+          console.error("Error", axiosError.message);
           this.error = axiosError.message;
         }
       }

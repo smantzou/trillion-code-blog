@@ -4,7 +4,7 @@ import BlogPage from "../pages/BlogPage/BlogPage.vue";
 
 const routes = [
   { path: "/blogs", name: "blogs", component: BlogListPage },
-  { path: "/blog/:pathMatch(.*)*", name: "blog", component: BlogPage },
+  { path: "/blog/:slug", name: "blog", component: BlogPage },
   { path: "/:pathMatch(.*)*", redirect: { name: "blogs" } },
 ];
 

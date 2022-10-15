@@ -44,8 +44,10 @@
           </div>
           <div class="address-text">
             <span>Λεωφ. Κηφισίας 324,</span>
-            <span> Χαλάνδρι 152 33</span>
           </div>
+        </div>
+        <div class="address-end">
+          <span> Χαλάνδρι 152 33</span>
         </div>
       </div>
       <div class="company grid grid-rows-3 grid-cols-none">
@@ -145,5 +147,9 @@
 }
 .address-text {
   word-break: break-word;
+}
+.address-end {
+  margin-top: -2rem;
+  margin-left: -0.5rem;
 }
 </style>

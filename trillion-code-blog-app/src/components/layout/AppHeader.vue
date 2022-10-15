@@ -24,7 +24,25 @@
     </div>
     <div class="super row-span-3 flex flex-start">
       <div class="title">
-        <span>Τα <strong>Νέα </strong> μας</span>
+        <div class="news">
+          <span v-if="router.currentRoute.value.fullPath.includes('/blogs')"
+            >Τα <strong>Νέα</strong> μας</span
+          >
+        </div>
+        <div
+          v-if="
+            selectedBlog &&
+            !router.currentRoute.value.fullPath.includes('/blogs')
+          "
+          class="reactive-div flex flex-col"
+        >
+          <div id="reactive-date">
+            <span>{{ new Date(selectedBlog.date).toLocaleDateString() }}</span>
+          </div>
+          <div id="reactive">
+            <span>{{ selectedBlog!.name }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -33,8 +51,11 @@
 <script setup lang="ts">
 import { router } from "@/router";
 import { useBlogStore } from "@/store/blog";
+import { storeToRefs } from "pinia";
 
 const store = useBlogStore();
+const { selectedBlog } = storeToRefs(store);
+
 function navigateToBlogs() {
   router.push({ path: `/blogs` });
 }
@@ -71,7 +92,7 @@ function navigateToBlogs() {
   color: black;
 }
 .super {
-  height: 5rem;
+  height: 6rem;
   background-image: radial-gradient(
     ellipse farthest-corner at right 100%,
     #000000 70%,
@@ -80,10 +101,27 @@ function navigateToBlogs() {
   color: white;
   border-radius: 10px;
   line-height: 50px;
+  justify-items: left;
 }
-.title {
-  margin-top: 2rem;
-  margin-left: 15rem;
+
+.news {
+  margin-top: 3rem;
+  margin-left: 14.5rem;
   color: #3abfff;
+}
+
+.reactive-div {
+  margin-top: -2rem;
+  margin-left: 12rem;
+  justify-content: start;
+}
+
+#reactive {
+  font-size: xx-large;
+}
+
+#reactive-date {
+  font-size: 15px;
+  width: 20%;
 }
 </style>

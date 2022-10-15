@@ -1,6 +1,7 @@
 <template>
-  <span>Blog Page works!</span>
-  <span>{{ selectedBlog }}</span>
+  <div class="blogPage grid grid-cols-none">
+    {{ selectedBlog }}
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -11,7 +12,12 @@ import { storeToRefs } from "pinia";
 const store = useBlogStore();
 const slug = router.currentRoute.value.fullPath?.toString().split("/blog/")[1];
 const { selectedBlog } = storeToRefs(store);
-await store.fetchBlogBySlugWithRelatedBlogs(slug);
+store.fetchBlogBySlugWithRelatedBlogs(slug);
 </script>
 
-<style></style>
+<style>
+.blogPage {
+  width: 50%;
+  margin-left: 11.5rem;
+}
+</style>
