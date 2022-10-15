@@ -21,7 +21,7 @@ services:
     image: tcb-api:1.0.0
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./api.Dockerfile
       args:
         NODE_ENV: production
     ports:
@@ -34,6 +34,19 @@ services:
     restart: unless-stopped
     depends_on:
       - database
+  client:
+    container_name: tcb-nginx
+    image: tcb-nginx:1.0.0
+    build:
+      context: .
+      dockerfile: ./client.Dockerfile
+    ports:
+      - 8080:80
+    networks:
+      - tcb-network
+    restart: unless-stopped
+    depends_on:
+      - rest-api
 volumes:
   my-db:
 networks:
