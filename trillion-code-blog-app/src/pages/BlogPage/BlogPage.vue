@@ -32,6 +32,9 @@ store.fetchBlogBySlugWithRelatedBlogs(slug);
 
 <style>
 .blogPage {
-  margin-left: 11.5rem;
+  margin-left: 12rem;
+}
+.main-content {
+  width: 65%;
 }
 </style>
