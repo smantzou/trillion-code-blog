@@ -6,6 +6,8 @@ COPY ./trillion-code-blog-api/package*.json ./
 
 RUN npm ci 
 
+RUN npm install -g @nestjs/cli@9.0.0
+
 COPY ./trillion-code-blog-api ./
 
 RUN npx prisma generate
